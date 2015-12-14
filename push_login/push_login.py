@@ -29,8 +29,9 @@ class suppress_stdout_stderr(object):
 
 
 def _read_key():
+    location = os.path.dirname(os.path.realpath(__file__))
     try:
-        with open('push.conf', 'r') as f:
+        with open('{}/push.conf'.format(location), 'r') as f:
             keys = [line.split('=')[-1].strip() for line in f if 'key' in line and '=' in line]
         assert len(keys) == 1
         assert keys[0]
