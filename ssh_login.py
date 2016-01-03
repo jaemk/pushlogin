@@ -1,9 +1,21 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import os
 from subprocess import call
 
-if os.environ.get('SSH_CONNECTION') and not os.environ.get('VIM'):
-    location = os.path.dirname(os.path.realpath(__file__))
-    call(['{}/push_login/push_login.py'.format(location)])
+import settings
 
+
+def main():
+    if os.environ.get('SSH_CONNECTION') and not os.environ.get('VIM'):
+        location = os.path.dirname(os.path.realpath(__file__))
+        
+        python_venv = settings.virtualenv_name
+        python_exec = '{}/{}/bin/python'.format(location, python_venv)
+        pushlogin_file = '{}/pushlogin.py'.format(location)
+        
+        call([python_exec, pushlogin_file])
+
+
+if __name__ == '__main__':
+    main()

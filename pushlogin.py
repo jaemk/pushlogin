@@ -1,13 +1,11 @@
-#!/home/james/.login/push_login/pushpy/bin/python3.5
-
-
 from pushbullet import Pushbullet
 import os
 
+import settings
 
 # Context manager to suppress stdout and stderr.
 class suppress_stdout_stderr(object):
-
+    ''' Class to suppress pushbullet output '''
     def __init__(self):
         # Open a pair of null files
         self.null_fds =  [os.open(os.devnull,os.O_RDWR) for x in range(2)]
@@ -29,19 +27,12 @@ class suppress_stdout_stderr(object):
 
 
 def _read_key():
-    location = os.path.dirname(os.path.realpath(__file__))
-    try:
-        with open('{}/push.conf'.format(location), 'r') as f:
-            keys = [line.split('=')[-1].strip() for line in f if 'key' in line and '=' in line]
-        assert len(keys) == 1
-        assert keys[0]
-        return keys[0]
-    except IOError:
-        print("unable to read api key from 'push.conf'\n")
-    except AssertionError:
-        print("No (or multiple) key(s) found in 'push.conf'\n",
-              "Formatting:\n",
-              "      key = enterkeytexthere\n")
+    key = settings.key
+    if not key:
+         print("No key found in 'settings.py'\n",
+               "Formatting:\n",
+               "      key = 'enterkeytexthere'\n")
+    return key
 
 
 def main():
