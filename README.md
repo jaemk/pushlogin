@@ -2,7 +2,7 @@
 Sends pushbullet notification on successful ssh login
 
 Requires:
-* 'pushbullet.py' lib: (https://github.com/randomchars/pushbullet.py)
+* [pushbullet.py](https://github.com/randomchars/pushbullet.py)
 * A pushbullet api key.
 * clone this repo and create a virtualenv in pushlogin `virtaulenv -p python3.x pbenv`
   * `pip install -r requirements.txt`
